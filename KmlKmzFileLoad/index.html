@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>KML KMZ files Load</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html,
+      body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+      }
+
+      #map {
+          height: 100%;
+      }
+  </style>
+</head>
+
+<body>
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+  <div>
+    <button type="button" onclick="loadKmz()">kmz Load</button>
+    <button type="button" onclick="loadKml()">kml Load</button>
+    <button type="button" onclick="clearMap()">clear Map</button>
+  </div>
+  <div id="map"></div>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDd7W_wxFArb0vzBpTZ8KbFFNGHJDTc9ps&callback=initMap"></script>
+  <script>
+    var map = null;
+    var kmzLayer, kmlLayer;
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 12,
+        center: new google.maps.LatLng(25.04, 121.505)
+      });
+    }
+
+    var loadKmz = function () {
+      kmzLayer = new google.maps.KmlLayer({
+        url: 'https://shunnien.github.io/Victoria/sample.kmz',
+        //map: map
+      });
+      kmzLayer.setMap(map);
+    };
+
+    var loadKml = function () {
+      kmlLayer = new google.maps.KmlLayer({
+        url: 'https://shunnien.github.io/Victoria/ty_bike_lane.kml',
+        //clickable: false,
+        //preserveViewport: true,
+        //screenOverlays: false,
+        //suppressInfoWindows: false,
+        //map: map
+      });
+      kmlLayer.setMap(map);
+    };
+
+    var clearMap = function () {
+      if (kmzLayer) {
+        kmzLayer.setMap(null);
+      }
+      if (kmlLayer) {
+        kmlLayer.setMap(null);
+      }
+    };
+    // var kmzBtn = document.getElementById("btnkmz");
+    // var kmlBtn = document.getElementById("btnKml");
+    // kmzBtn.addEventListener("click", loadKmz);
+    // kmlBtn.addEventListener("click", loadKml);
+  </script>
+</body>
+
+</html>
